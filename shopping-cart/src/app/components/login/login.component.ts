@@ -1,28 +1,34 @@
 import { Component } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router'; // Import Router for navigation
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router:Router){
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
-      username: ['admin', Validators.required],
-      password:['admin@123',Validators.required]
-    })
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
   }
 
-  onSubmit(){
-    if(this.loginForm.valid){
-      localStorage.setItem('isLoggedIn','true');
-      this.router.navigate(['/admin'])
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log('Form Submitted', this.loginForm.value);
+      this.router.navigate(['/admin']); // Redirect to admin page
     }
   }
 
+  get username() {
+    return this.loginForm.get('username');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
 }

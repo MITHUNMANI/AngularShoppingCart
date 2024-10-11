@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Admin Panel</h2>
-    <button (click)="openAddProductModal()" class="btn btn-primary" data-toggle="modal" data-target="#productModal">Add Product</button>
+    <button (click)="openAddProductModal()" class="btn btn-primary">Add Product</button>
     
     <table class="table">
         <thead>
@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Quantity</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,29 +19,52 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.price | currency }}</td>
                 <td>{{ product.description }}</td>
+                <td>{{ product.quantity }}</td>
                 <td>
-                    <button (click)="editProduct(product)">Edit</button>
-                    <button (click)="deleteProduct(product.id)">Delete</button>
+                    <button (click)="editProduct(product)" class="btn btn-warning">Edit</button>
+                    <button (click)="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
 
+    <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ editMode ? 'Edit' : 'Add' }} Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form (ngSubmit)="addProduct()">
+                    <form (ngSubmit)="addProduct()" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text" name="name" required class="form-control"/>
+                            <input type="text" [(ngModel)]="newProduct.name" name="name" required class="form-control"/>
                         </div>
+
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <input type="number" [(ngModel)]="newProduct.price" name="price" required class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea [(ngModel)]="newProduct.description" name="description" required class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" required min="1" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Image:</label>
+                            <input type="file" (change)="onFileChange($event)" name="image" required class="form-control"/>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

@@ -1,0 +1,19 @@
+.container {
+    margin-top: 20px;
+}
+
+.table img {
+    width: 50px;
+}
+
+.modal-header {
+    background-color: #f8f9fa; 
+}
+
+.modal-body {
+    padding: 20px; 
+}
+
+.btn-warning, .btn-danger {
+    margin-right: 5px;
+}
