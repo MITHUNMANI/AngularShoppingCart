@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Admin Panel</h2>
+    <button (click)="openAddProductModal()" class="btn btn-primary" data-toggle="modal" data-target="#productModal">Add Product</button>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td><img [src]="product.image" style="width:50px;"></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    <button (click)="editProduct(product)">Edit</button>
+                    <button (click)="deleteProduct(product.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ editMode ? 'Edit' : 'Add' }} Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="addProduct()">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" required class="form-control"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

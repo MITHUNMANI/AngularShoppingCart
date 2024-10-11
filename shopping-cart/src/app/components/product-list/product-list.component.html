@@ -1,0 +1,16 @@
+<div class="container">
+    <input type="text" placeholder="Search products..." />
+    <div class='row'>
+        <div *ngFor='let product of products' class='col-md-3'>
+            <div class='card'>
+                <img [src]='product.image' alt='{{ product.name }}' class='card-img-top'/>
+                <div class='card-body'>
+                    <h5>{{ product.name }}</h5>
+                    {{ product.price | currency }}
+                    {{ product.description }}
+                    <button (click)="addToCart(product)" class='btn btn-primary'>Add to Cart</button>
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div>
